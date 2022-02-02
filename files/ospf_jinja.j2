@@ -1,0 +1,11 @@
+router ospf {{ospf_process}}
+  {% for network in networks %}
+  router-id {{router_id}}
+  network {{network['net]}} {{network['mask']}} area {{network['area_id']}}
+  !
+  {% endfor %}
+
+{% for int in interface %}
+interface {{int['ospf_int']}}
+  ip ospf {{ospf_process}} area {{int['area_id']}}
+{% endfor %}

@@ -1,0 +1,32 @@
+---
+
+local_loopback:
+  - name: Loopback0
+    ip_address: 1.1.1.1/32
+
+interfaces:
+  - name: GigabitEthernet2
+    ip_address: 10.0.12.1/24
+  - name: GigabitEthernet3
+    ip_address: 10.1.13.1/24
+  
+
+networks:
+  - net: 1.1.1.1 
+    mask: 0.0.0.0
+    area_id: 0
+  - net: 10.0.12.0 
+    mask: 0.0.0.255
+    area_id: 0
+  - net: 10.1.13.0 
+    mask: 0.0.0.255
+    area_id: 1
+
+interface:
+  - ospf_int: GigabitEthernet2
+    area_id: 0
+  - ospf_int: GigabitEthernet3
+    area_id: 1
+
+ospf_router_id: 1.1.1.1
+ospf_process: 1
