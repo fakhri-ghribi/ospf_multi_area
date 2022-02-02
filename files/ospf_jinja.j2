@@ -1,6 +1,6 @@
 router ospf {{ospf_process}}
   {% for network in networks %}
-  router-id {{router_id}}
+  router-id {{ospf_router_id}}
   network {{network['net']}} {{network['mask']}} area {{network['area_id']}}
   {% endfor %}
 
