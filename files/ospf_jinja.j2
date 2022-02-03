@@ -7,4 +7,5 @@ router ospf {{ospf_process}}
 {% for int in interface %}
 interface {{int['ospf_int']}}
    ip ospf {{ospf_process}} area {{int['area_id']}}
+   !
 {% endfor %}
