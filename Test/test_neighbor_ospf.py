@@ -17,8 +17,9 @@ find_routerid_url = 'Cisco-IOS-XE-ospf-oper:ospf-oper-data/ospf-state/ospf-insta
 headers = {'Accept': 'application/yang-data+json',
            'Content-Type': 'application/yang-data+json'}
 
-
+nbr_neighbor = 0
 def test_ospf():
+    
     for ip in ip_address:
         print(f"Starting with device {ip}")
         logging.info(f"Starting with device {ip}")
@@ -34,7 +35,7 @@ def test_ospf():
         router_id = json.loads(routerid_resp.text)["Cisco-IOS-XE-ospf-oper:ospf-instance"][0]['router-id']
         area_id = json.loads(routerid_resp.text)["Cisco-IOS-XE-ospf-oper:ospf-instance"][0]['ospf-area']
         #print(f"Retrieved router-id {router_id} for host {ip}")
-        nbr_neighbor = 0
+        
         for area in area_id:
             print(f"Retrieved area-id {area['area-id']} for host {ip}")
             new_url = (
