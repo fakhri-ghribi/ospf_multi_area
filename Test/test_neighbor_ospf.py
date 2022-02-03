@@ -17,9 +17,9 @@ find_routerid_url = 'Cisco-IOS-XE-ospf-oper:ospf-oper-data/ospf-state/ospf-insta
 headers = {'Accept': 'application/yang-data+json',
            'Content-Type': 'application/yang-data+json'}
 
-nbr_neighbor = 0
+
 def test_ospf():
-    
+    nbr_neighbor = 0
     for ip in ip_address:
         print(f"Starting with device {ip}")
         logging.info(f"Starting with device {ip}")
