@@ -29,14 +29,15 @@ def test_ospf():
         logging.info(routerid_resp.status_code)
         print(url)
         print(routerid_resp.status_code)
-        print(routerid_resp.text)
+        #print(routerid_resp.text)
         logging.info(routerid_resp.text)
         router_id = json.loads(routerid_resp.text)["Cisco-IOS-XE-ospf-oper:ospf-instance"][0]['router-id']
+        area_id = json.loads(routerid_resp.text)["Cisco-IOS-XE-ospf-oper:ospf-instance"][0]['ospf-area'][0]['area-id']
         print(f"Retrieved router-id {router_id} for host {ip}")
         new_url = (
-            f"{url}=address-family-ipv4,{router_id}/ospf-area=0/ospf-interface/")
-        interfaces = requests.get(
-            url=new_url, headers=headers, auth=('devnet', 'cisco'), verify=False).json()['Cisco-IOS-XE-ospf-oper:ospf-interface']
+            f"{url}=address-family-ipv4,{router_id}/ospf-area={area_id}/ospf-interface/")
+        print(new_url)
+        interfaces = requests.get(url=new_url, headers=headers, auth=('devnet', 'cisco'), verify=False).json()['Cisco-IOS-XE-ospf-oper:ospf-interface']
         ospf_state = False
         for interface in interfaces:
             if 'ospf-neighbor' in interface:
