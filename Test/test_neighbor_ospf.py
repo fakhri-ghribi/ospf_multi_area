@@ -48,10 +48,10 @@ def test_ospf():
                     for nbr in nbrs:
                         if nbr['state'] == 'ospf-nbr-full':
                             ospf_state = True
-                            nbr_neighbor = + 1
+                            nbr_neighbor = nbr_neighbor + 1
                             print(f"OSPF is up on {ip}")
-        print(nbr_neighbor)
+        
         assert(ospf_state == True)
-
+    print(nbr_neighbor)
 
 test_ospf()
