@@ -27,14 +27,14 @@ def test_ospf():
         routerid_resp = requests.get(
             url=url, auth=('devnet', 'cisco'), headers=headers, verify=False)
         logging.info(routerid_resp.status_code)
-        print(url)
-        print(routerid_resp.status_code)
+        #print(url)
+        #print(routerid_resp.status_code)
         #print(routerid_resp.text)
         logging.info(routerid_resp.text)
         router_id = json.loads(routerid_resp.text)["Cisco-IOS-XE-ospf-oper:ospf-instance"][0]['router-id']
         area_id = json.loads(routerid_resp.text)["Cisco-IOS-XE-ospf-oper:ospf-instance"][0]['ospf-area']
-        print(f"Retrieved router-id {router_id} for host {ip}")
-        
+        #print(f"Retrieved router-id {router_id} for host {ip}")
+        nbr_neighbor = 0
         for area in area_id:
             print(f"Retrieved area-id {area['area-id']} for host {ip}")
             new_url = (
@@ -48,8 +48,9 @@ def test_ospf():
                     for nbr in nbrs:
                         if nbr['state'] == 'ospf-nbr-full':
                             ospf_state = True
+                            nbr_neighbor = + 1
                             print(f"OSPF is up on {ip}")
-        # print(new_url)
+        print(nbr_neighbor)
         assert(ospf_state == True)
 
 
