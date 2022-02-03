@@ -34,6 +34,7 @@ def test_ospf():
         router_id = json.loads(routerid_resp.text)["Cisco-IOS-XE-ospf-oper:ospf-instance"][0]['router-id']
         area_id = json.loads(routerid_resp.text)["Cisco-IOS-XE-ospf-oper:ospf-instance"][0]['ospf-area'][0]['area-id']
         print(f"Retrieved router-id {router_id} for host {ip}")
+        print(f"Retrieved router-id {area_id} for host {ip}")
         new_url = (
             f"{url}=address-family-ipv4,{router_id}/ospf-area={area_id}/ospf-interface/")
         print(new_url)
