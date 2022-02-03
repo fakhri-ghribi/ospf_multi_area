@@ -32,21 +32,23 @@ def test_ospf():
         #print(routerid_resp.text)
         logging.info(routerid_resp.text)
         router_id = json.loads(routerid_resp.text)["Cisco-IOS-XE-ospf-oper:ospf-instance"][0]['router-id']
-        area_id = json.loads(routerid_resp.text)["Cisco-IOS-XE-ospf-oper:ospf-instance"][0]['ospf-area'][0]['area-id']
+        area_id = json.loads(routerid_resp.text)["Cisco-IOS-XE-ospf-oper:ospf-instance"][0]['ospf-area']
         print(f"Retrieved router-id {router_id} for host {ip}")
-        print(f"Retrieved router-id {area_id} for host {ip}")
-        new_url = (
-            f"{url}=address-family-ipv4,{router_id}/ospf-area={area_id}/ospf-interface/")
-        print(new_url)
-        interfaces = requests.get(url=new_url, headers=headers, auth=('devnet', 'cisco'), verify=False).json()['Cisco-IOS-XE-ospf-oper:ospf-interface']
-        ospf_state = False
-        for interface in interfaces:
-            if 'ospf-neighbor' in interface:
-                nbrs = interface['ospf-neighbor']
-                for nbr in nbrs:
-                    if nbr['state'] == 'ospf-nbr-full':
-                        ospf_state = True
-                        print(f"OSPF is up on {ip}")
+        
+        for area in area_id:
+            print(f"Retrieved area-id {area['area-id']} for host {ip}")
+            new_url = (
+            f"{url}=address-family-ipv4,{router_id}/ospf-area={area['area-id']}/ospf-interface/")
+            print(new_url)
+            interfaces = requests.get(url=new_url, headers=headers, auth=('devnet', 'cisco'), verify=False).json()['Cisco-IOS-XE-ospf-oper:ospf-interface']
+            ospf_state = False
+            for interface in interfaces:
+                if 'ospf-neighbor' in interface:
+                    nbrs = interface['ospf-neighbor']
+                    for nbr in nbrs:
+                        if nbr['state'] == 'ospf-nbr-full':
+                            ospf_state = True
+                            print(f"OSPF is up on {ip}")
         # print(new_url)
         assert(ospf_state == True)
 
