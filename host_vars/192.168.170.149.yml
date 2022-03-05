@@ -2,7 +2,9 @@
 
 local_loopback:
   - name: Loopback0
-    ip_address: 2.2.2.2/32
+    desc: "Loopback for router-id"
+    ip_address: 2.2.2.2
+    prefix: 255.255.255.255
 
 interfaces:
   - name: GigabitEthernet2
