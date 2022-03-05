@@ -1,6 +1,6 @@
 ---
 - name : configure Loopback interfaces from template
-  hosts: multiarea
+  hosts: 10.10.20.100
   connection: local
   gather_facts: no 
   
