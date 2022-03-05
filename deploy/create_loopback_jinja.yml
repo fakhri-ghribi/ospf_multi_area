@@ -6,7 +6,7 @@
   
   tasks:
     - name: Create Loppback Interfaces
-      with_items: "{{loopback}}"
+      with_items: "{{loopbacks}}"
       template: src=files/ietf_interface.j2 dest="./output/{{ inventory_hostname }}/loopback.json"
     
    
