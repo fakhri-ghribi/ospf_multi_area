@@ -3,6 +3,8 @@
   hosts: multiarea
   connection: local
   gather_facts: no 
+  include_vars:
+    dir: host_vars
   tasks:
     - name: Create Loppback Interfaces
       with_items: "{{ loopback }}"
