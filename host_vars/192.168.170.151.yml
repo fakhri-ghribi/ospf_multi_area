@@ -1,6 +1,6 @@
 ---
 
-local_loopback:
+loopback:
   - name: Loopback0
     desc: "Loopback for router-id"
     ip_address: 4.4.4.4
