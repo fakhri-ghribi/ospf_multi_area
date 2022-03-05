@@ -1,0 +1,11 @@
+---
+- name : configure Loopback interfaces from template
+  hosts: multiarea
+  connection: local
+  gather_facts: no 
+  tasks:
+    - name: Create Loppback Interfaces
+      with_items: "{{local_loopback}}"
+      template: src=files/ietf_interface.j2 dest="./output/{{inventory_hostname}}/loopback.json"
+    
+   
